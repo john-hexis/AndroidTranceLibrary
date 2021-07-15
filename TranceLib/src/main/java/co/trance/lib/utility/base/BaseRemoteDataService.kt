@@ -10,7 +10,7 @@ abstract class BaseRemoteDataService<T: IAPIService> {
     /**
      * Create new API service, only can create 1 instance for each service to avoid memory leaks.
      * */
-    internal inline fun <reified T : IAPIService> createApiService(baseHttpUrl: HttpUrl?): T {
+    inline fun <reified T : IAPIService> createApiService(baseHttpUrl: HttpUrl?): T {
         return APIServiceManager.instance<T>().create(T::class.java, baseHttpUrl)
     }
 }

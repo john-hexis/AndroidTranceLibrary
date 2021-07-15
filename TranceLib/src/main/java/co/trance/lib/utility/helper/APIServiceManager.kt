@@ -17,7 +17,7 @@ class APIServiceManager<T: IAPIService>() {
         }
     }
 
-    internal fun create(service: Class<T>, httpUrl: HttpUrl?): T {
+    fun create(service: Class<T>, httpUrl: HttpUrl?): T {
         val logger = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
             override fun log(message: String) {
                 Log.d("API", message)
@@ -29,8 +29,8 @@ class APIServiceManager<T: IAPIService>() {
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
 //        if (BuildConfig.DEBUG) {
-//            logger.apply { logger.level = HttpLoggingInterceptor.Level.BODY }
-//            client.addInterceptor(logger)
+            logger.apply { logger.level = HttpLoggingInterceptor.Level.BODY }
+            client.addInterceptor(logger)
 //        }
         return Retrofit.Builder()
             .baseUrl(httpUrl!!)
