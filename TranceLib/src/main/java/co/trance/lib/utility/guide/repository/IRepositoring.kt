@@ -7,15 +7,15 @@ import co.trance.lib.utility.guide.repository.service.IPersistenceService
 
 interface IRepositoring
 
-interface IRepositoringWithLocalRemote<L: ILocalDataSource<IPersistenceService>, R: IRemoteDataSource<IAPIService>>: IRepositoring  {
-    val local: L?
-    val remote: R?
+interface IRepositoringWithLocalRemote: IRepositoring  {
+    val local: ILocalDataSource?
+    val remote: IRemoteDataSource?
 }
 
-interface IRepositoringWithLocal<L: ILocalDataSource<IPersistenceService>>: IRepositoring {
-    val local: L?
+interface IRepositoringWithLocal: IRepositoring {
+    val local: ILocalDataSource?
 }
 
-interface IRepositoringWithRemote<R: IRemoteDataSource<IAPIService>>: IRepositoring  {
-    val remote: R?
+interface IRepositoringWithRemote: IRepositoring  {
+    val remote: IRemoteDataSource?
 }
