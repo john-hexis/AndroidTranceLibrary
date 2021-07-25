@@ -4,6 +4,6 @@ import android.content.Context
 
 abstract class ViewBuilder<V: IViewing> {
     abstract fun build(): V
-    abstract fun setPresenter(presenter: IPresenting)
-    abstract fun setActivity(activity: Context)
+    abstract fun setPresenter(presenter: IPresenting): ViewBuilder<V>
+    abstract fun setActivity(activity: Context): ViewBuilder<V>
 }
