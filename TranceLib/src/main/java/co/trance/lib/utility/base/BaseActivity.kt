@@ -61,8 +61,9 @@ abstract class BaseActivity: AppCompatActivity() {
             option.popOutLeft)
     }
 
-    protected fun replaceFragmentNoAnimation(newFragment: Fragment) {
-        this.replaceFragment(newFragment)
+    protected fun replaceFragmentNoAnimation(newFragment: Fragment, option: UITransitionOption = UITransitionOption()) {
+        this.replaceFragment(newFragment,
+            option.idContainer)
     }
 
     private fun replaceFragment(newFragment: Fragment, idContainer: Int = 0, animIn: Int = 0, animOut: Int = 0, popIn: Int = 0, popOut: Int = 0) {
