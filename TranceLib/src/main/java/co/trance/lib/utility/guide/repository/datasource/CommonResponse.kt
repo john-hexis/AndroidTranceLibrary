@@ -1,4 +1,4 @@
-package co.trance.lib.utility.guide.repository
+package co.trance.lib.utility.guide.repository.datasource
 
 data class CommonResponse<T: IResponseData> (
     var status: Int,
