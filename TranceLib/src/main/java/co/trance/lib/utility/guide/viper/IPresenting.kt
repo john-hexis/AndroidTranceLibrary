@@ -4,4 +4,5 @@ interface IPresenting {
     val interactor: IInteracting?
     fun onLoaded()
     fun onDispose()
+    fun onDetach()
 }
