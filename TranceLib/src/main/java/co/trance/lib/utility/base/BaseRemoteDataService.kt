@@ -6,7 +6,6 @@ import okhttp3.HttpUrl
 
 
 abstract class BaseRemoteDataService<T: IAPIService> {
-    protected abstract val apiService: T
     /**
      * Create new API service, only can create 1 instance for each service to avoid memory leaks.
      * */
