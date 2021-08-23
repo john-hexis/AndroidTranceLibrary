@@ -6,8 +6,9 @@ import co.trance.lib.utility.guide.repository.service.IPersistenceService
 
 abstract class BaseDBObject {
     private var INSTANCE: Any? = null
+    abstract val dbName: String
 
-    fun <D: IPersistenceService> getDatabase(context: Context, dbName: String): BaseDBService<D> {
+    fun <D: IPersistenceService> getDatabase(context: Context): BaseDBService<D> {
         if (INSTANCE == null) {
             INSTANCE = Room
                 .databaseBuilder(context.applicationContext, BaseDBService::class.java, dbName)
