@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentTransaction
 import co.trance.lib.utility.helper.Misc
 import co.trance.lib.utility.helper.UITransitionOption
 
-abstract class BaseActivity: AppCompatActivity() {
+abstract class BaseActivity: AppCompatActivity(), IBaseActivity {
     private val activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result -> onActivityResult(result) }
 
     //region Activity LifeCycle
@@ -52,6 +52,7 @@ abstract class BaseActivity: AppCompatActivity() {
     //endregion
 
     //region Non-Overrides Methods
+    @Deprecated(message = "Please use pushToNextFragment instead.", level = DeprecationLevel.WARNING)
     protected fun replaceFragmentNextPageAnimation(newFragment: Fragment, option: UITransitionOption = UITransitionOption()) {
         this.replaceFragment(newFragment,
             option.idContainer,
@@ -61,16 +62,25 @@ abstract class BaseActivity: AppCompatActivity() {
             option.popOutLeft)
     }
 
+    @Deprecated(message = "Please use pushToNextFragment instead.", level = DeprecationLevel.WARNING)
     protected fun replaceFragmentNoAnimation(newFragment: Fragment, option: UITransitionOption = UITransitionOption()) {
         this.replaceFragment(newFragment,
             option.idContainer)
     }
 
-    private fun replaceFragment(newFragment: Fragment, idContainer: Int = 0, animIn: Int = 0, animOut: Int = 0, popIn: Int = 0, popOut: Int = 0) {
+    protected fun pushNextFragment(newFragment: Fragment, option: UITransitionOption = UITransitionOption()) {
+        this.addFragment(newFragment,
+            option.idContainer,
+            option.animateSlideInRight,
+            option.animateSlideOutLeft,
+            option.popInRight,
+            option.popOutLeft)
+    }
+
+    private fun replaceFragment(fragment: Fragment, idContainer: Int = 0, animIn: Int = 0, animOut: Int = 0, popIn: Int = 0, popOut: Int = 0) {
         val fm = supportFragmentManager
 
         val transaction = fm.beginTransaction()
-        val backStateName = newFragment.javaClass.name
 
         if (animIn == 0 && animOut == 0 && popIn == 0 && popOut == 0) {
             transaction.setTransition(FragmentTransaction.TRANSIT_NONE)
@@ -78,20 +88,23 @@ abstract class BaseActivity: AppCompatActivity() {
             transaction.setCustomAnimations(animIn, animOut, popIn, popOut)
         }
 
-        val oldFragment = fm.findFragmentById(idContainer)
+        transaction.addToBackStack(fragment.javaClass.name)
+        transaction.replace(idContainer, fragment).commit()
+        fm.executePendingTransactions()
+    }
 
-        if (oldFragment != null) {
-            // avoid loadingDialog same fragment twice
-            if (!oldFragment.javaClass.name.equals(newFragment.javaClass.name, ignoreCase = true)) {
-                transaction.add(idContainer, newFragment, backStateName)
-                transaction.hide(oldFragment)
-            }
+    private fun addFragment(newFragment: Fragment, idContainer: Int = 0, animIn: Int = 0, animOut: Int = 0, popIn: Int = 0, popOut: Int = 0) {
+        val fm = supportFragmentManager
+        val transaction = fm.beginTransaction()
+
+        if (animIn == 0 && animOut == 0 && popIn == 0 && popOut == 0) {
+            transaction.setTransition(FragmentTransaction.TRANSIT_NONE)
         } else {
-            transaction.add(idContainer, newFragment, backStateName)
+            transaction.setCustomAnimations(animIn, animOut, popIn, popOut)
         }
 
-        transaction.addToBackStack(backStateName)
-        transaction.commit()
+        transaction.addToBackStack(newFragment.javaClass.name)
+        transaction.add(idContainer, newFragment).commit()
         fm.executePendingTransactions()
     }
 

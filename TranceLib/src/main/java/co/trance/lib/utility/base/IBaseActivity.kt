@@ -1,4 +1,4 @@
-package co.trance.lib.utility.guide.viper
+package co.trance.lib.utility.base
 import androidx.fragment.app.Fragment
 interface IBaseActivity {
     fun fragmentBackPressed()

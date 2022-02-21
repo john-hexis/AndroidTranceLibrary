@@ -1,3 +1,7 @@
 package co.trance.lib.utility.guide.repository.datasource
 
-interface IResponseData
+import org.json.JSONObject
+
+interface IResponseBody {
+    fun parse(json: JSONObject): IResponseBody
+}

@@ -10,10 +10,10 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-class APIServiceManager<T: IAPIService>() {
+class APIRetrofitServiceManager<T: IAPIService>() {
     companion object Shared {
-        fun <T : IAPIService> instance(): APIServiceManager<T> {
-            return APIServiceManager()
+        fun <T : IAPIService> instance(): APIRetrofitServiceManager<T> {
+            return APIRetrofitServiceManager()
         }
     }
 

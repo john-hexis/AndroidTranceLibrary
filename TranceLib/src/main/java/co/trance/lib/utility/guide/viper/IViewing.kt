@@ -1,7 +1,9 @@
 package co.trance.lib.utility.guide.viper
 
-interface IViewing {
-    val presenter: IPresenting?
+import co.trance.lib.utility.guide.repository.IRepositoring
+
+interface IViewing<T:IPresenting<IInteracting<IRepositoring>>> {
+    val presenter: T?
     fun onDispose()
 
     fun onStateChanged()
