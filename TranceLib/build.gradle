@@ -4,12 +4,16 @@ plugins {
     id 'kotlin-android'
 }
 
+ext {
+    kotlin_version = '1.6.10'
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        minSdkVersion 28
+        minSdkVersion 29
         targetSdkVersion 30
         versionCode 2
         versionName "1.1.2"

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 
+@Suppress("DEPRECATION")
 abstract class BaseFragment: Fragment() {
     /**
      * Toolbar, it's assign to [ToolbarOption.toolbarViewId] in [ToolbarOption]
