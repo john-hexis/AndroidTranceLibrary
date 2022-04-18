@@ -21,13 +21,19 @@ abstract class BaseActivity: AppCompatActivity(), IBaseActivity {
         this.setupAnalytics()
     }
 
-    protected abstract fun setupAnalytics()
+    /**
+     * Analytics setup handler, it's called during onCreate activity lifecycle.
+     * */
+    protected open fun setupAnalytics() {}
 
     override fun onStart() {
         super.onStart()
         this.permissionHandler()
     }
 
+    /**
+     * Permission handler, it's called during onStart activity lifecycle.
+     * */
     protected abstract fun permissionHandler()
 
     override fun onResume() {
@@ -35,14 +41,20 @@ abstract class BaseActivity: AppCompatActivity(), IBaseActivity {
         this.startAnalytics()
     }
 
-    protected abstract fun startAnalytics()
+    /**
+     * Start analytics handler, it's called during onStart activity lifecycle.
+     * */
+    protected open fun startAnalytics() {}
 
     override fun onPause() {
         super.onPause()
         this.endAnalytics()
     }
 
-    protected abstract fun endAnalytics()
+    /**
+     * End analytics handler, it's called during onPause activity lifecycle.
+     * */
+    protected open fun endAnalytics() {}
     //endregion
 
     //region Activity Result / Intent Handler
@@ -68,6 +80,12 @@ abstract class BaseActivity: AppCompatActivity(), IBaseActivity {
             option.idContainer)
     }
 
+    /**
+     * Navigate to next fragment.
+     *
+     * @param newFragment next fragment to be navigated
+     * @param option transition settings, by default, it's optional to set
+     * */
     protected fun pushNextFragment(newFragment: Fragment, option: UITransitionOption = UITransitionOption()) {
         this.addFragment(newFragment,
             option.idContainer,
