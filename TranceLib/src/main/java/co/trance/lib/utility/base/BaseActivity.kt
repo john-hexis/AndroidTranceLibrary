@@ -12,7 +12,7 @@ import co.trance.lib.utility.helper.Misc
 import co.trance.lib.utility.helper.UITransitionOption
 
 abstract class BaseActivity: AppCompatActivity(), IBaseActivity {
-    private val activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result -> onActivityResult(result) }
+    private val activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result -> onHandleActivityResult(result) }
 
     //region Activity LifeCycle
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,13 +58,19 @@ abstract class BaseActivity: AppCompatActivity(), IBaseActivity {
     //endregion
 
     //region Activity Result / Intent Handler
-    abstract fun onActivityResult(activityResult: ActivityResult)
+    /**
+     * Handle activity result callback
+     * */
+    abstract fun onHandleActivityResult(activityResult: ActivityResult)
 
+    /**
+     * Handle activity action result callback
+     * */
     abstract fun onHandleActionIntent(intent: Intent?)
     //endregion
 
     //region Non-Overrides Methods
-    @Deprecated(message = "Please use pushToNextFragment instead.", level = DeprecationLevel.WARNING)
+    @Deprecated(message = "Please use pushToNextFragment instead.", level = DeprecationLevel.ERROR)
     protected fun replaceFragmentNextPageAnimation(newFragment: Fragment, option: UITransitionOption = UITransitionOption()) {
         this.replaceFragment(newFragment,
             option.idContainer,
@@ -74,7 +80,7 @@ abstract class BaseActivity: AppCompatActivity(), IBaseActivity {
             option.popOutLeft)
     }
 
-    @Deprecated(message = "Please use pushToNextFragment instead.", level = DeprecationLevel.WARNING)
+    @Deprecated(message = "Please use pushToNextFragment instead.", level = DeprecationLevel.ERROR)
     protected fun replaceFragmentNoAnimation(newFragment: Fragment, option: UITransitionOption = UITransitionOption()) {
         this.replaceFragment(newFragment,
             option.idContainer)
@@ -150,13 +156,11 @@ abstract class BaseActivity: AppCompatActivity(), IBaseActivity {
     //endregion
 
     //region Request Code
-    class RequestCode {
-        companion object Shared {
-            const val NONE = 10001
-            const val LOCATION_PERMISSION = 10002
-            const val CAMERA_PERMISSION = 10003
-            const val NETWORK_PERMISSION = 10004
-        }
+    inner class RequestCode {
+            val NONE = 10001
+            val LOCATION_PERMISSION = 10002
+            val CAMERA_PERMISSION = 10003
+            val NETWORK_PERMISSION = 10004
     }
     //endregion
 }
