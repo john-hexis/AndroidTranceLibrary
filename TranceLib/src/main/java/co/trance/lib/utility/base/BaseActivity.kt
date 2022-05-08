@@ -2,6 +2,7 @@ package co.trance.lib.utility.base
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -14,11 +15,23 @@ import co.trance.lib.utility.helper.UITransitionOption
 abstract class BaseActivity: AppCompatActivity(), IBaseActivity {
     private val activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result -> onHandleActivityResult(result) }
 
+    /**
+     * Contain base layout container,
+     * */
+    protected var baseContainerView: View? = null
+
     //region Activity LifeCycle
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.supportActionBar?.hide()
+        this.setupView()
         this.setupAnalytics()
+    }
+
+    /**
+     * Setup view handler.
+     * */
+    protected open fun setupView() {
+        this.supportActionBar?.hide()
     }
 
     /**
