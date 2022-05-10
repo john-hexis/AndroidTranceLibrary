@@ -14,5 +14,10 @@ interface IBaseActivity {
     fun getDeviceLocation(success: (Location) -> Unit, failed: () -> Unit)
     fun isLocationEnabled(): Boolean
 
-    enum class Action
+    interface Action {
+        /**
+         * Get TAG value from determined action. TAG value usually is used to make segregate action handling.
+         * */
+        fun getTag(): String
+    }
 }
