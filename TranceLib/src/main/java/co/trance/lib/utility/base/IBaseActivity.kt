@@ -13,4 +13,6 @@ interface IBaseActivity {
     fun getBaseActivity(): BaseActivity
     fun getDeviceLocation(success: (Location) -> Unit, failed: () -> Unit)
     fun isLocationEnabled(): Boolean
+
+    enum class Action
 }
