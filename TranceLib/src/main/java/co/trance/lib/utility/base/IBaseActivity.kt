@@ -9,7 +9,6 @@ interface IBaseActivity {
     fun fragmentBackPressed()
     fun fragmentBackPressed(requestCode: Int, intent: Intent)
     fun fragmentNavigation(fragment: Fragment, backStack: Boolean ?= false, add: Boolean ?= false)
-    fun startActivityWithResult(intent: Intent, options: ActivityOptionsCompat? = null)
     fun getBaseActivity(): BaseActivity
     fun getDeviceLocation(success: (Location) -> Unit, failed: () -> Unit)
     fun isLocationEnabled(): Boolean
