@@ -2,7 +2,7 @@ package co.trance.lib.utility.guide.viper
 
 import co.trance.lib.utility.guide.repository.IRepositoring
 
-interface IPresenting<T:IInteracting<IRepositoring>> {
+interface IPresenting<T:IInteracting> {
     val interactor: T?
     fun onLoaded()
     fun onDispose()
